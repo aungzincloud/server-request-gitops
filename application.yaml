@@ -1,0 +1,29 @@
+# File: argocd/application.yaml
+
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+name: server-request-uat
+namespace: openshift-gitops
+
+spec:
+project: default
+
+source:
+repoURL: https://github.com/aungzincloud/server-request-gitops.git
+targetRevision: main
+path: .
+
+destination:
+server: https://kubernetes.default.svc
+namespace: server-request-uat
+
+syncPolicy:
+automated:
+prune: true
+selfHeal: true
+
+```
+syncOptions:
+  - CreateNamespace=true
+```
